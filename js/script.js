@@ -4,11 +4,13 @@ const username = "nomi811";
 const repoList = document.querySelector(".repo-list");
 
 const gitUserInfo = async function () {
-  const userInfo = await fetch (`https://api.github.com/users/${username}`);
+  const userInfo = await fetch (
+    `https://api.github.com/users/${username}`
+  );
     const data = await userInfo.json ();
-    console.log(data);
     displayUserInfo (data);
 };
+
 gitUserInfo ();
 
 const displayUserInfo = function (data) {
@@ -26,12 +28,22 @@ const displayUserInfo = function (data) {
     </div>
     `;
   overview.append (div);
+  gitRepos ();
 };
 
 const gitRepos = async function () {
   const fetchRepos = await fetch (
     `https://api.github.com/users/${username}/repos?sort=updated&per_page=100`
   );
-  const repoData = await res.json ();
+  const repoData = await fetchRepos.json ();
   displayRepos(repoData);
 };
+
+const displayRepos = function (repos) {
+  for (const repo of repos) {
+    const repoItem = document.createElement ("li");
+    repoItem.classList.add ("repo");
+    repoItem.innerHTML = `<h3>${repo.name}</h3>`;
+    repoList.append(repoItem);
+  }
+}
