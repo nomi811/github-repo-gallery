@@ -1,7 +1,8 @@
-// targeting overview div//
 const overview = document.querySelector(".overview");
 const username = "nomi811";
 const repoList = document.querySelector(".repo-list");
+const allReposContainer = document.querySelector (".repos");
+const repoData = document.querySelector (".repo-data");
 
 const gitUserInfo = async function () {
   const userInfo = await fetch (
@@ -45,5 +46,12 @@ const displayRepos = function (repos) {
     repoItem.classList.add ("repo");
     repoItem.innerHTML = `<h3>${repo.name}</h3>`;
     repoList.append(repoItem);
+  };
+};
+
+repoList.addEventListener("click", function (e) {
+  if (e.target.matches("h3")) {
+    const repoName = e.target.innerText;
+    console.log(repoName);
   }
-}
+})
