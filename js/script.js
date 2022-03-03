@@ -68,10 +68,12 @@ const getRepoInfo = async function (repoName) {
   for (const language in languageData) {
     languages.push(language);
   }
+  displayRepoInfo(repoInfo, languages);
 };
 
 const displayRepoInfo = function (repoInfo, languages) {
   repoData.innerHTML = "";
+
   const div = document.createElement("div");
   div.innerHTML = `
     <h3>Name: ${repoInfo.name}</h3>
@@ -80,4 +82,8 @@ const displayRepoInfo = function (repoInfo, languages) {
     <p>Languages: ${languages.join(", ")}</p>
     <a class="visit" href="${repoInfo.html_url}" target="_blank" rel="noreferrer noopener">View Repo on Github!</a>
   `;
-}
+
+  repoData.classList.remove("hide");
+  repoData.append(div);
+  allReposContainer.classList.add("hide");
+};
